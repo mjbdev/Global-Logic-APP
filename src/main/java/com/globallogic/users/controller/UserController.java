@@ -2,7 +2,6 @@ package com.globallogic.users.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.globallogic.users.config.JwtTokenUtil;
 import com.globallogic.users.exception.EmailWrongFormatException;
 import com.globallogic.users.model.LoginResponse;
 import com.globallogic.users.model.ResponseBody;
@@ -22,11 +21,8 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private JwtTokenUtil jwtTokenUtil;
-
     @PostMapping(value = "/sign-up", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ResponseBody> login(@RequestBody String body) throws Exception {
+    public ResponseEntity<ResponseBody> signUp(@RequestBody String body) throws Exception {
         log.info("*** Begin sign-up ***");
         log.info("Request Body: " + body);
 
