@@ -51,24 +51,34 @@ public class UserService {
 
         encodePassword(userDTO);
 
-        User user = new User();
-        user.setName(userDTO.getName());
-        user.setEmail(userDTO.getEmail());
-        user.setPhones(userDTO.getPhones());
-        user.setPassword(userDTO.getPassword());
-        user.setCreated(LocalDateTime.now());
+        User user = parseDto(userDTO);
 
         userRepository.save(user);
         log.info("User saved");
 
+        ResponseBody rb = createResponse(user);
+
+        return rb;
+    }
+
+    private ResponseBody createResponse(User user) {
         ResponseBody rb = new ResponseBody();
         rb.setId(user.getId());
         rb.setEmail(user.getEmail());
         rb.setCreated(user.getCreated());
         rb.setIsActive(true);
         rb.setToken(jwtTokenUtil.generateToken(user));
-
         return rb;
+    }
+
+    private static User parseDto(UserDTO userDTO) {
+        User user = new User();
+        user.setName(userDTO.getName());
+        user.setEmail(userDTO.getEmail());
+        user.setPhones(userDTO.getPhones());
+        user.setPassword(userDTO.getPassword());
+        user.setCreated(LocalDateTime.now());
+        return user;
     }
 
     private void encodePassword(UserDTO userDTO) {

@@ -6,10 +6,8 @@ import com.globallogic.users.config.JwtTokenUtil;
 import com.globallogic.users.exception.EmailWrongFormatException;
 import com.globallogic.users.model.LoginResponse;
 import com.globallogic.users.model.ResponseBody;
-import com.globallogic.users.model.User;
 import com.globallogic.users.model.UserDTO;
 import com.globallogic.users.service.UserService;
-import io.jsonwebtoken.ExpiredJwtException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -48,8 +46,6 @@ public class UserController {
             throw emailWrongFormatException;
         }
 
-
-
         return new ResponseEntity<>(responseBody, HttpStatus.OK);
     }
 
@@ -65,11 +61,5 @@ public class UserController {
         } else {
             throw new Exception("Invalid Token");
         }
-
-
-
     }
-
-
-
 }
